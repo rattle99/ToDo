@@ -16,6 +16,7 @@ class _todouiState extends State<todoui> {
   String errorText = "";
   String todoEdited = "";
   var myitems = List();
+  List<Widget> children = new List<Widget>();
 
   void addtodo() async {
     Map<String, dynamic> row = {
@@ -23,9 +24,46 @@ class _todouiState extends State<todoui> {
     };
     final id = await dbhelper.insert(row);
     Navigator.pop(context);
+    todoEdited = "";
+    setState(() {
+      validated = true;
+      errorText = "";
+    });
+  }
+
+  Future<bool> query() async {
+    myitems = [];
+    children = [];
+    var allrows = await dbhelper.queryall();
+    allrows.forEach((row) {
+      myitems.add(row.toString());
+      children.add(
+        Card(
+          elevation: 5.0,
+          margin: EdgeInsets.symmetric(
+            horizontal: 10.0,
+            vertical: 5.0,
+          ),
+          child: Container(
+            padding: EdgeInsets.all(5.0),
+            child: ListTile(
+              title: Text(row['todo']),
+              onLongPress: (){
+                dbhelper.deletedata(row['id']);
+                setState(() {
+                  
+                });
+              },
+            ),
+          )
+        )
+      );
+    });
+    return Future.value(true);
   }
   
   void showalertdialog() {
+    texteditingcontroller.text = "";
     showDialog(
       context: context,
       builder: (context) {
@@ -81,25 +119,6 @@ class _todouiState extends State<todoui> {
     );
   }
 
-  Widget mycard(String task) {
-    return Card(
-      elevation: 5.0,
-      margin: EdgeInsets.symmetric(
-        horizontal: 10.0,
-        vertical: 5.0,
-      ),
-      child: Container(
-        padding: EdgeInsets.all(5.0),
-        child: ListTile(
-          title: Text(task),
-          onLongPress: (){
-            print("To be deleted");
-          },
-        ),
-      )
-    );
-  }
-
   Widget build(BuildContext context) {
     return FutureBuilder(
       builder: (context, snap) {
@@ -121,6 +140,7 @@ class _todouiState extends State<todoui> {
               ),
               appBar: AppBar(
                 title: Text("Tasks"),
+                centerTitle: true,
                 backgroundColor: Colors.black,
               ),
               backgroundColor: Colors.black,
@@ -141,14 +161,20 @@ class _todouiState extends State<todoui> {
               ),
               appBar: AppBar(
                 title: Text("Tasks"),
+                centerTitle: true,
                 backgroundColor: Colors.black,
               ),
               backgroundColor: Colors.black,
-              body: FlutterLogo(),
+              body: SingleChildScrollView(
+                child: Column(
+                  children: children,
+                ),
+              ),
             );
           }
         }
-      }
+      },
+      future: query(),
     );
   }
 }

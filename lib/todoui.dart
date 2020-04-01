@@ -8,6 +8,35 @@ class todoui extends StatefulWidget {
 class _todouiState extends State<todoui> {
   @override
 
+  void showalertdialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        title: Text("Add task"),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            TextField(
+              autofocus: true,
+            ),
+            Row(
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: (){},
+                  color: Colors.purple,
+                  child: Text("Add"),
+                )
+              ],
+            )
+          ],
+        ),
+      )
+    );
+  }
+
   Widget mycard(String task) {
     return Card(
       elevation: 5.0,
@@ -30,7 +59,7 @@ class _todouiState extends State<todoui> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: showalertdialog,
         child: Icon(
           Icons.add,
           color: Colors.white,

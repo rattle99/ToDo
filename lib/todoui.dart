@@ -7,6 +7,26 @@ class todoui extends StatefulWidget {
 
 class _todouiState extends State<todoui> {
   @override
+
+  Widget mycard(String task) {
+    return Card(
+      elevation: 5.0,
+      margin: EdgeInsets.symmetric(
+        horizontal: 10.0,
+        vertical: 5.0,
+      ),
+      child: Container(
+        padding: EdgeInsets.all(5.0),
+        child: ListTile(
+          title: Text(task),
+          onLongPress: (){
+            print("To be deleted");
+          },
+        ),
+      )
+    );
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -25,7 +45,7 @@ class _todouiState extends State<todoui> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            
+            mycard("task")
           ]
         )
       ),

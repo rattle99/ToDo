@@ -14,6 +14,16 @@ class _todouiState extends State<todoui> {
   final texteditingcontroller = TextEditingController();
   bool validated = true;
   String errorText = "";
+  String todoEdited = "";
+  var myitems = List();
+
+  void addtodo() async {
+    Map<String, dynamic> row = {
+      Databasehelper.columnName : todoEdited,
+    };
+    final id = await dbhelper.insert(row);
+    Navigator.pop(context);
+  }
   
   void showalertdialog() {
     showDialog(
@@ -31,6 +41,12 @@ class _todouiState extends State<todoui> {
                 TextField(
                   controller: texteditingcontroller,
                   autofocus: true,
+                  onChanged: (_val) {
+                    todoEdited = _val;
+                  },
+                  decoration: InputDecoration(
+                    errorText: validated ? null : errorText,
+                  ),
                 ),
                 Row(
                   children: <Widget>[
@@ -47,6 +63,9 @@ class _todouiState extends State<todoui> {
                             errorText = "Too long!";
                             validated = false;
                           });
+                        }
+                        else {
+                          addtodo();
                         }
                       },
                       color: Colors.purple,
@@ -82,27 +101,54 @@ class _todouiState extends State<todoui> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: showalertdialog,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.purple,
-      ),
-      appBar: AppBar(
-        title: Text("Tasks"),
-        backgroundColor: Colors.black,
-      ),
-      backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            mycard("task")
-          ]
-        )
-      ),
+    return FutureBuilder(
+      builder: (context, snap) {
+        if (snap.hasData == null) {
+          return Center(
+            child: Text("No Data"),
+          );
+        }
+        else {
+          if (myitems.length == 0) {
+            return Scaffold(
+              floatingActionButton: FloatingActionButton(
+                onPressed: showalertdialog,
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+                backgroundColor: Colors.purple,
+              ),
+              appBar: AppBar(
+                title: Text("Tasks"),
+                backgroundColor: Colors.black,
+              ),
+              backgroundColor: Colors.black,
+              body: Center(
+                child: Text("No Tasks"),
+              ),
+            );
+          }
+          else {
+            return Scaffold(
+              floatingActionButton: FloatingActionButton(
+                onPressed: showalertdialog,
+                child: Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+                backgroundColor: Colors.purple,
+              ),
+              appBar: AppBar(
+                title: Text("Tasks"),
+                backgroundColor: Colors.black,
+              ),
+              backgroundColor: Colors.black,
+              body: FlutterLogo(),
+            );
+          }
+        }
+      }
     );
   }
 }

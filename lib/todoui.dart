@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/dbhelper.dart';
 
 class todoui extends StatefulWidget {
   @override
@@ -8,32 +9,56 @@ class todoui extends StatefulWidget {
 class _todouiState extends State<todoui> {
   @override
 
+  final dbhelper = Databasehelper.instance;
+
+  final texteditingcontroller = TextEditingController();
+  bool validated = true;
+  String errorText = "";
+  
   void showalertdialog() {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        title: Text("Add task"),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            TextField(
-              autofocus: true,
-            ),
-            Row(
+      builder: (context) {
+        return StatefulBuilder(builder: (context, setState){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              ),
+            title: Text("Add task"),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                RaisedButton(
-                  onPressed: (){},
-                  color: Colors.purple,
-                  child: Text("Add"),
+                TextField(
+                  controller: texteditingcontroller,
+                  autofocus: true,
+                ),
+                Row(
+                  children: <Widget>[
+                    RaisedButton(
+                      onPressed: (){
+                        if(texteditingcontroller.text.isEmpty) {
+                          setState(() {
+                            errorText = "Can't be empty!";
+                            validated = false;
+                          });
+                        }
+                        else if(texteditingcontroller.text.length > 512) {
+                          setState(() {
+                            errorText = "Too long!";
+                            validated = false;
+                          });
+                        }
+                      },
+                      color: Colors.purple,
+                      child: Text("Add"),
+                    )
+                  ],
                 )
               ],
-            )
-          ],
-        ),
-      )
+            ),
+          );
+        });
+      }
     );
   }
 

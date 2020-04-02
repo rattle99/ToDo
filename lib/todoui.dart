@@ -159,6 +159,8 @@ class _todouiState extends State<todoui> {
                 title: Text("To Do",
                 style: TextStyle(
                   fontFamily: "Raleway",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22.0,
                   ),
                 ),
                 centerTitle: true,
@@ -197,6 +199,8 @@ class _todouiState extends State<todoui> {
                 title: Text("To Do",
                   style: TextStyle(
                   fontFamily: "Raleway",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22.0,
                   ),
                 ),
                 centerTitle: true,

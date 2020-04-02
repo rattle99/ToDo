@@ -70,15 +70,27 @@ class _todouiState extends State<todoui> {
         return StatefulBuilder(builder: (context, setState){
           return AlertDialog(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(7.0),
               ),
-            title: Text("Add task"),
+            title: Text("Add task",
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: "Raleway",
+              ),
+            ),
+            backgroundColor: Colors.white,
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 TextField(
                   controller: texteditingcontroller,
+                  textCapitalization: TextCapitalization.sentences,
+                  cursorColor: Colors.black,
                   autofocus: true,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 17.0,
+                  ),
                   onChanged: (_val) {
                     todoEdited = _val;
                   },
@@ -106,8 +118,13 @@ class _todouiState extends State<todoui> {
                           addtodo();
                         }
                       },
-                      color: Colors.purple,
-                      child: Text("Add"),
+                      color: Colors.black,
+                      child: Text("Add",
+                        style: TextStyle(
+                          fontSize: 17.0,
+                          fontFamily: "Raleway",
+                        ),
+                      ),
                     )
                   ],
                 )
@@ -134,18 +151,35 @@ class _todouiState extends State<todoui> {
                 onPressed: showalertdialog,
                 child: Icon(
                   Icons.add,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
-                backgroundColor: Colors.purple,
+                backgroundColor: Colors.white,
               ),
               appBar: AppBar(
-                title: Text("Tasks"),
+                title: Text("To Do",
+                style: TextStyle(
+                  fontFamily: "Raleway",
+                  ),
+                ),
                 centerTitle: true,
                 backgroundColor: Colors.black,
+                bottom: PreferredSize(
+                  child: Container(
+                    color: Colors.white, 
+                    height: 2.0,
+                    ), 
+                  preferredSize: Size.fromHeight(2.0)
+                  ),
               ),
               backgroundColor: Colors.black,
               body: Center(
-                child: Text("No Tasks"),
+                child: Text("All done!",
+                  style: TextStyle(
+                    fontFamily: "Raleway",
+                    fontSize: 18.0,
+                    color: Colors.white30,
+                    ),
+                ),
               ),
             );
           }
@@ -155,14 +189,25 @@ class _todouiState extends State<todoui> {
                 onPressed: showalertdialog,
                 child: Icon(
                   Icons.add,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
-                backgroundColor: Colors.purple,
+                backgroundColor: Colors.white,
               ),
               appBar: AppBar(
-                title: Text("Tasks"),
+                title: Text("To Do",
+                  style: TextStyle(
+                  fontFamily: "Raleway",
+                  ),
+                ),
                 centerTitle: true,
                 backgroundColor: Colors.black,
+                bottom: PreferredSize(
+                  child: Container(
+                    color: Colors.white, 
+                    height: 2.0,
+                    ), 
+                  preferredSize: Size.fromHeight(2.0)
+                  ),
               ),
               backgroundColor: Colors.black,
               body: SingleChildScrollView(

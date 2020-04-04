@@ -1,4 +1,8 @@
 # ToDo
+[![Codemagic build status](https://api.codemagic.io/apps/5e88384abccbec28655e0d84/5e88384abccbec28655e0d83/status_badge.svg)](https://codemagic.io/apps/5e88384abccbec28655e0d84/5e88384abccbec28655e0d83/latest_build)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/rattle99/ToDo)
+![GitHub repo size](https://img.shields.io/github/repo-size/rattle99/ToDo)
+
 ---
 
 A simple to-do list app using flutter.
